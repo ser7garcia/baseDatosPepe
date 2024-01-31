@@ -29,6 +29,7 @@ class DatabaseHandler(context: Context) :
 
     fun addContact(name: String, email: String): Long {
         val db = this.writableDatabase
+        //Las siguientes lineas crean una lista Key,Valor con name, email
         val values = ContentValues()
         values.put(KEY_NAME, name)
         values.put(KEY_EMAIL, email)

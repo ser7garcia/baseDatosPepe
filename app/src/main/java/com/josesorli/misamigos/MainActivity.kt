@@ -3,6 +3,7 @@ package com.josesorli.misamigos
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         nameEditText = findViewById(R.id.nameEditText)
         emailEditText = findViewById(R.id.emailEditText)
-        saveButton = findViewById(R.id.emailEditText)
+        saveButton = findViewById(R.id.saveButton)
 
         db = DatabaseHandler(this)
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 // Los campos están vacíos, muestra un mensaje de error o realiza alguna otra acción aquí
+                Toast.makeText(applicationContext, "Te falta algún campo por rellenar", Toast.LENGTH_SHORT).show()
             }
         }
     }
