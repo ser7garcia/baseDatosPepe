@@ -1,8 +1,10 @@
 package com.josesorli.misamigos
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -11,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var saveButton: Button
+    private lateinit var consultabutton: Button
+    private lateinit var resultado: TextView
 
     private lateinit var db: DatabaseHandler
 
@@ -21,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.nameEditText)
         emailEditText = findViewById(R.id.emailEditText)
         saveButton = findViewById(R.id.saveButton)
+        consultabutton =findViewById(R.id.consultabutton)
+        resultado = findViewById(R.id.resultado)
 
         db = DatabaseHandler(this)
 
@@ -33,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 if (id != -1L) {
                     // Éxito al guardar en la base de datos
                     // Puedes mostrar un mensaje de éxito o realizar alguna otra acción aquí
+                    Toast.makeText(applicationContext, "Guardado con exito", Toast.LENGTH_LONG).show()
                     nameEditText.text.clear()
                     emailEditText.text.clear()
                 } else {
@@ -43,6 +50,20 @@ class MainActivity : AppCompatActivity() {
                 // Los campos están vacíos, muestra un mensaje de error o realiza alguna otra acción aquí
                 Toast.makeText(applicationContext, "Te falta algún campo por rellenar", Toast.LENGTH_SHORT).show()
             }
+        }
+        consultabutton.setOnClickListener{
+            val contactlist = db.getAllContact()
+            resultado.text=""
+
+            for(contact in contactlist){
+                //Log.d("Contacto","ID:${contact.id}, nombre: ${contact.name}, Email: ${contact.email}")
+                resultado.append("ID:${contact.id}, NOMBRE:${contact.name}, EMAIL:${contact.email}\n")
+               // resultado.append("NOMBRE: $contact.name\n")
+            }
+        /*val texto = contactlist.joinToString()
+            resultado.text=""
+            resultado.text=texto*/
+
         }
     }
 }
